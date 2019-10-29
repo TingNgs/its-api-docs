@@ -8,7 +8,11 @@
   "tags": [
     {
       "name": "session",
-      "description": "API for client side auth"
+      "description": "API for auth (client)"
+    },
+    {
+      "name": "profile",
+      "description": "API for profile data (client)"
     }
   ],
   "paths": {
@@ -201,6 +205,43 @@
           }
         }
       }
+    },
+    "/profile/me": {
+      "get": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "get my username",
+        "operationId": "profileMe",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "string",
+            "name": "sessionId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "username exist",
+            "schema": {
+              "$ref": "#/definitions/PROFILE_RES"
+            }
+          },
+          "401": {
+            "description": "sessionId unauthorized"
+          },
+          "403": {
+            "description": "Invalid parameter"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -225,6 +266,35 @@
           "type": "string",
           "format": "hash",
           "example": "82a9dda829eb7f8ffe9fbe49e45d47d2dad9664fbb7adf72492e3c81ebd3e29134d9bc12212bf83c6840f10e8246b9db54a4859b7ccd0123d86e5872c1e5082f"
+        }
+      }
+    },
+    "PROFILE_RES": {
+      "type": "object",
+      "required": [
+        "username"
+      ],
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "ting"
+        }
+      }
+    },
+    "PROFILE_RES2": {
+      "type": "object",
+      "required": [
+        "username",
+        "photoUrl"
+      ],
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "ting"
+        },
+        "photoUrl": {
+          "type": "string",
+          "example": "www.image.jpg"
         }
       }
     }
