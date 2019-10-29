@@ -1,0 +1,254 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API for Issue tracking system",
+    "version": "1.0.0",
+    "title": "ITS - API"
+  },
+  "tags": [
+    {
+      "name": "session",
+      "description": "API for client side auth"
+    }
+  ],
+  "paths": {
+    "/session": {
+      "post": {
+        "tags": [
+          "session"
+        ],
+        "summary": "Register a new account",
+        "operationId": "register",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Email, password and username",
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password",
+                "username"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "example": "test@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "format": "hash",
+                  "example": "127e6fbfe24a750e72930c220a8e138275656b8e5d8f48a98c3c92df2caba935"
+                },
+                "username": {
+                  "type": "string",
+                  "example": "ting"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Register success",
+            "schema": {
+              "$ref": "#/definitions/AUTH_RES"
+            }
+          },
+          "401": {
+            "description": "Login fail. Wrong password."
+          },
+          "403": {
+            "description": "Invalid parameter"
+          },
+          "409": {
+            "description": "Email or username exist with error code (emai 0 or username 1)",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "/session/login": {
+      "post": {
+        "tags": [
+          "session"
+        ],
+        "summary": "Login by email and password",
+        "operationId": "login",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Email and password",
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "example": "test@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "format": "hash",
+                  "example": "127e6fbfe24a750e72930c220a8e138275656b8e5d8f48a98c3c92df2caba935"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login success",
+            "schema": {
+              "$ref": "#/definitions/AUTH_RES"
+            }
+          },
+          "401": {
+            "description": "Login fail. Wrong password."
+          },
+          "403": {
+            "description": "Invalid parameter"
+          },
+          "404": {
+            "description": "Email not exist"
+          }
+        }
+      }
+    },
+    "/session/verify/email": {
+      "post": {
+        "tags": [
+          "session"
+        ],
+        "summary": "Check Email exist",
+        "operationId": "checkEmailExist",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Email",
+            "schema": {
+              "type": "object",
+              "required": [
+                "email"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "example": "test@gmail.com"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Email exist"
+          },
+          "403": {
+            "description": "Invalid parameter"
+          },
+          "404": {
+            "description": "Email not exist"
+          }
+        }
+      }
+    },
+    "/session/verify/username": {
+      "post": {
+        "tags": [
+          "session"
+        ],
+        "summary": "Check username exist",
+        "operationId": "checkUsernameExist",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Username",
+            "schema": {
+              "type": "object",
+              "required": [
+                "username"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "format": "username",
+                  "example": "ting"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "username exist"
+          },
+          "403": {
+            "description": "Invalid parameter"
+          },
+          "404": {
+            "description": "username not exist"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AUTH_RES": {
+      "type": "object",
+      "required": [
+        "userId",
+        "username",
+        "sessionID"
+      ],
+      "properties": {
+        "email": {
+          "type": "integer",
+          "format": "integer",
+          "example": 1
+        },
+        "username": {
+          "type": "string",
+          "example": "ting"
+        },
+        "sessionID": {
+          "type": "string",
+          "format": "hash",
+          "example": "82a9dda829eb7f8ffe9fbe49e45d47d2dad9664fbb7adf72492e3c81ebd3e29134d9bc12212bf83c6840f10e8246b9db54a4859b7ccd0123d86e5872c1e5082f"
+        }
+      }
+    }
+  }
+}
