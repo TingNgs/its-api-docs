@@ -95,7 +95,7 @@ paths:
         404:
           description: Email not exist
   /session/verify/email:
-    post:
+    get:
       tags:
       - session
       summary: Check Email exist
@@ -105,17 +105,10 @@ paths:
       produces:
       - application/json
       parameters:
-      - in: body
-        name: Email
-        schema:
-          type: object
-          required:
-            - email
-          properties:
-            email:
-              type: string
-              format: email
-              example: test@gmail.com
+        - in: path
+          type : string
+          name: email 
+          required: true
       responses:
         200:
           description: Email exist
@@ -124,7 +117,7 @@ paths:
         404:
           description: Email not exist
   /session/verify/username:
-    post:
+    get:
       tags:
       - session
       summary: Check username exist
@@ -134,17 +127,10 @@ paths:
       produces:
       - application/json
       parameters:
-      - in: body
-        name: Username
-        schema:
-          type: object
-          required:
-            - username
-          properties:
-            email:
-              type: string
-              format: username
-              example: ting
+        - in: path
+          type : string
+          name: username   
+          required: true
       responses:
         200:
           description: username exist
@@ -152,7 +138,6 @@ paths:
           description: Invalid parameter
         404:
           description: username not exist
-
 
 
 
