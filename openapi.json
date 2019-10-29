@@ -135,7 +135,7 @@
       }
     },
     "/session/verify/email": {
-      "post": {
+      "get": {
         "tags": [
           "session"
         ],
@@ -149,21 +149,10 @@
         ],
         "parameters": [
           {
-            "in": "body",
-            "name": "Email",
-            "schema": {
-              "type": "object",
-              "required": [
-                "email"
-              ],
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "format": "email",
-                  "example": "test@gmail.com"
-                }
-              }
-            }
+            "in": "path",
+            "type": "string",
+            "name": "email",
+            "required": true
           }
         ],
         "responses": {
@@ -180,7 +169,7 @@
       }
     },
     "/session/verify/username": {
-      "post": {
+      "get": {
         "tags": [
           "session"
         ],
@@ -194,21 +183,10 @@
         ],
         "parameters": [
           {
-            "in": "body",
-            "name": "Username",
-            "schema": {
-              "type": "object",
-              "required": [
-                "username"
-              ],
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "format": "username",
-                  "example": "ting"
-                }
-              }
-            }
+            "in": "path",
+            "type": "string",
+            "name": "username",
+            "required": true
           }
         ],
         "responses": {
