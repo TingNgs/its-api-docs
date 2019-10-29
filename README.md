@@ -1,7 +1,12 @@
 # its OpenAPI Specification
 
+## Github page
+
+redoc : https://tingngs.github.io/its-api-docs/
+swagger-ui : https://tingngs.github.io/its-api-docs/swagger-ui/
 
 ## Working on specification
+
 ### Install
 
 1. Install [Node JS](https://nodejs.org/)
@@ -10,13 +15,17 @@
 ### Usage
 
 #### `npm start`
+
 Starts the development server.
 
 #### `npm run build`
+
 Bundles the spec and prepares web_deploy folder with static assets.
 
 #### `npm test`
+
 Validates the spec.
 
 #### `npm run gh-pages`
+
 Deploys docs to GitHub Pages. You don't need to run it manually if you have Travis CI configured.
