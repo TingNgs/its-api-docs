@@ -152,7 +152,7 @@ paths:
           required: true
       responses:
         '200':
-          description: username exist
+          description: fetch profile success
           schema:
             $ref: '#/definitions/PROFILE_RES'
         '401':
