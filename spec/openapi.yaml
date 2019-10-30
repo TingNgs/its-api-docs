@@ -50,7 +50,7 @@ paths:
             $ref: '#/definitions/AUTH_RES'
         401:
           description: Login fail. Wrong password.
-        403:
+        400:
           description: Invalid parameter
         409:
           description: Email or username exist
@@ -91,7 +91,7 @@ paths:
             $ref: '#/definitions/AUTH_RES'
         401:
           description: Login fail. Wrong password.
-        403:
+        400:
           description: Invalid parameter
         404:
           description: Email not exist
@@ -113,7 +113,7 @@ paths:
       responses:
         200:
           description: Email exist
-        403:
+        400:
           description: Invalid parameter
         404:
           description: Email not exist
@@ -135,7 +135,7 @@ paths:
       responses:
         200:
           description: username exist
-        403:
+        400:
           description: Invalid parameter
         404:
           description: username not exist
@@ -161,7 +161,7 @@ paths:
             $ref: '#/definitions/PROFILE_RES'
         401:
           description: sessionId unauthorized
-        403:
+        400:
           description: Invalid parameter
 
 definitions:
