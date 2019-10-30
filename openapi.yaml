@@ -45,10 +45,10 @@ paths:
           description: Register success
           schema:
             $ref: '#/definitions/AUTH_RES'
+        '400':
+          description: Invalid parameter
         '401':
           description: Login fail. Wrong password.
-        '403':
-          description: Invalid parameter
         '409':
           description: Email or username exist with error code (emai 0 or username 1)
           schema:
@@ -85,10 +85,10 @@ paths:
           description: Login success
           schema:
             $ref: '#/definitions/AUTH_RES'
+        '400':
+          description: Invalid parameter
         '401':
           description: Login fail. Wrong password.
-        '403':
-          description: Invalid parameter
         '404':
           description: Email not exist
   /session/verify/email:
@@ -109,7 +109,7 @@ paths:
       responses:
         '200':
           description: Email exist
-        '403':
+        '400':
           description: Invalid parameter
         '404':
           description: Email not exist
@@ -131,7 +131,7 @@ paths:
       responses:
         '200':
           description: username exist
-        '403':
+        '400':
           description: Invalid parameter
         '404':
           description: username not exist
@@ -155,10 +155,10 @@ paths:
           description: fetch profile success
           schema:
             $ref: '#/definitions/PROFILE_RES'
+        '400':
+          description: Invalid parameter
         '401':
           description: sessionId unauthorized
-        '403':
-          description: Invalid parameter
 definitions:
   AUTH_RES:
     type: object

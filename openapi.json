@@ -66,11 +66,11 @@
               "$ref": "#/definitions/AUTH_RES"
             }
           },
+          "400": {
+            "description": "Invalid parameter"
+          },
           "401": {
             "description": "Login fail. Wrong password."
-          },
-          "403": {
-            "description": "Invalid parameter"
           },
           "409": {
             "description": "Email or username exist with error code (emai 0 or username 1)",
@@ -126,11 +126,11 @@
               "$ref": "#/definitions/AUTH_RES"
             }
           },
+          "400": {
+            "description": "Invalid parameter"
+          },
           "401": {
             "description": "Login fail. Wrong password."
-          },
-          "403": {
-            "description": "Invalid parameter"
           },
           "404": {
             "description": "Email not exist"
@@ -163,7 +163,7 @@
           "200": {
             "description": "Email exist"
           },
-          "403": {
+          "400": {
             "description": "Invalid parameter"
           },
           "404": {
@@ -197,7 +197,7 @@
           "200": {
             "description": "username exist"
           },
-          "403": {
+          "400": {
             "description": "Invalid parameter"
           },
           "404": {
@@ -234,11 +234,11 @@
               "$ref": "#/definitions/PROFILE_RES"
             }
           },
+          "400": {
+            "description": "Invalid parameter"
+          },
           "401": {
             "description": "sessionId unauthorized"
-          },
-          "403": {
-            "description": "Invalid parameter"
           }
         }
       }
