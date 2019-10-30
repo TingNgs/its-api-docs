@@ -1,4 +1,4 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   description: API for Issue tracking system
   version: 1.0.0
@@ -6,48 +6,48 @@ info:
 
 # tags are used for organizing operations
 tags:
-- name: session
-  description: API for auth (client)
-- name: profile
-  description: API for profile data (client)
+  - name: session
+    description: API for auth (client)
+  - name: profile
+    description: API for profile data (client)
 
 paths:
   /session:
     post:
       tags:
-      - session
+        - session
       summary: Register a new account
       operationId: register
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: Email, password and username
-        schema:
-          type: object
-          required:
-            - email
-            - password
-            - username
-          properties:
-            email:
-              type: string
-              format: email
-              example: test@gmail.com
-            password:
-              type: string
-              format: hash
-              example: 127e6fbfe24a750e72930c220a8e138275656b8e5d8f48a98c3c92df2caba935
-            username:
-              type: string
-              example: ting
+        - in: body
+          name: Email, password and username
+          schema:
+            type: object
+            required:
+              - email
+              - password
+              - username
+            properties:
+              email:
+                type: string
+                format: email
+                example: test@gmail.com
+              password:
+                type: string
+                format: hash
+                example: 127e6fbfe24a750e72930c220a8e138275656b8e5d8f48a98c3c92df2caba935
+              username:
+                type: string
+                example: ting
       responses:
         200:
           description: Register success
           schema:
-            $ref: '#/definitions/AUTH_RES'
+            $ref: "#/definitions/AUTH_RES"
         401:
           description: Login fail. Wrong password.
         400:
@@ -60,35 +60,35 @@ paths:
   /session/login:
     post:
       tags:
-      - session
+        - session
       summary: Login by email and password
       operationId: login
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
-      - in: body
-        name: Email and password
-        schema:
-          type: object
-          required:
-            - email
-            - password
-          properties:
-            email:
-              type: string
-              format: email
-              example: test@gmail.com
-            password:
-              type: string
-              format: hash
-              example: 127e6fbfe24a750e72930c220a8e138275656b8e5d8f48a98c3c92df2caba935
+        - in: body
+          name: Email and password
+          schema:
+            type: object
+            required:
+              - email
+              - password
+            properties:
+              email:
+                type: string
+                format: email
+                example: test@gmail.com
+              password:
+                type: string
+                format: hash
+                example: 127e6fbfe24a750e72930c220a8e138275656b8e5d8f48a98c3c92df2caba935
       responses:
         200:
           description: Login success
           schema:
-            $ref: '#/definitions/AUTH_RES'
+            $ref: "#/definitions/AUTH_RES"
         401:
           description: Login fail. Wrong password.
         400:
@@ -98,17 +98,17 @@ paths:
   /session/verify/email:
     get:
       tags:
-      - session
+        - session
       summary: Check Email exist
       operationId: checkEmailExist
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
         - in: path
-          type : string
-          name: email 
+          type: string
+          name: email
           required: true
       responses:
         200:
@@ -120,17 +120,17 @@ paths:
   /session/verify/username:
     get:
       tags:
-      - session
+        - session
       summary: Check username exist
       operationId: checkUsernameExist
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
         - in: path
-          type : string
-          name: username   
+          type: string
+          name: username
           required: true
       responses:
         200:
@@ -139,26 +139,50 @@ paths:
           description: Invalid parameter
         404:
           description: username not exist
-  /profile/me:
+  /profile:
     get:
       tags:
-      - profile
-      summary: get my username
-      operationId: profileMe
+        - profile
+      summary: get profile by id
+      operationId: profileById
       consumes:
-      - application/json
+        - application/json
       produces:
-      - application/json
+        - application/json
       parameters:
         - in: path
-          type : string
-          name: sessionId   
+          type: integer
+          name: profileId
           required: true
       responses:
         200:
           description: fetch profile success
           schema:
-            $ref: '#/definitions/PROFILE_RES'
+            $ref: "#/definitions/PROFILE_RES"
+        404:
+          description: Profile not found
+        400:
+          description: Invalid parameter
+  /profile/me:
+    get:
+      tags:
+        - profile
+      summary: get my username
+      operationId: profileMe
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          type: string
+          name: sessionId
+          required: true
+      responses:
+        200:
+          description: fetch profile success
+          schema:
+            $ref: "#/definitions/PROFILE_RES"
         401:
           description: sessionId unauthorized
         400:
@@ -178,7 +202,7 @@ definitions:
         example: 1
       username:
         type: string
-        example : ting
+        example: ting
       sessionID:
         type: string
         format: hash
@@ -190,8 +214,7 @@ definitions:
     properties:
       username:
         type: string
-        example : ting
-
+        example: ting
   PROFILE_RES2:
     type: object
     required:
@@ -200,7 +223,7 @@ definitions:
     properties:
       username:
         type: string
-        example : ting
+        example: ting
       photoUrl:
         type: string
         example: www.image.jpg
