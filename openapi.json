@@ -206,6 +206,43 @@
         }
       }
     },
+    "/profile": {
+      "get": {
+        "tags": [
+          "profile"
+        ],
+        "summary": "get profile by id",
+        "operationId": "profileById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "name": "profileId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "fetch profile success",
+            "schema": {
+              "$ref": "#/definitions/PROFILE_RES"
+            }
+          },
+          "400": {
+            "description": "Invalid parameter"
+          },
+          "404": {
+            "description": "Profile not found"
+          }
+        }
+      }
+    },
     "/profile/me": {
       "get": {
         "tags": [
