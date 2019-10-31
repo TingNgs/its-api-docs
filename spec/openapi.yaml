@@ -48,15 +48,17 @@ paths:
           description: Register success
           schema:
             $ref: "#/definitions/AUTH_RES"
-        401:
-          description: Login fail. Wrong password.
         400:
           description: Invalid parameter
+        401:
+          description: Login fail. Wrong password.
         409:
           description: Email or username exist
             with error code (emai 0 or username 1)
           schema:
             type: integer
+        500:
+          description: Internal Server Error
   /session/login:
     post:
       tags:
@@ -89,12 +91,32 @@ paths:
           description: Login success
           schema:
             $ref: "#/definitions/AUTH_RES"
-        401:
-          description: Login fail. Wrong password.
         400:
           description: Invalid parameter
+        401:
+          description: Login fail. Wrong password.
         404:
           description: Email not exist
+        500:
+          description: Internal Server Error
+  /session/logout:
+    delete:
+      tags:
+        - session
+      summary: Login by email and password
+      operationId: logout
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          type: string
+          name: sessionId
+          required: true
+      responses:
+        500:
+          description: Internal Server Error
   /session/verify/email:
     get:
       tags:
@@ -106,7 +128,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - in: path
+        - in: query
           type: string
           name: email
           required: true
@@ -117,6 +139,8 @@ paths:
           description: Invalid parameter
         404:
           description: Email not exist
+        500:
+          description: Internal Server Error
   /session/verify/username:
     get:
       tags:
@@ -128,7 +152,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - in: path
+        - in: query
           type: string
           name: username
           required: true
@@ -139,6 +163,8 @@ paths:
           description: Invalid parameter
         404:
           description: username not exist
+        500:
+          description: Internal Server Error
   /profile:
     get:
       tags:
@@ -150,7 +176,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - in: path
+        - in: query
           type: integer
           name: profileId
           required: true
@@ -159,10 +185,12 @@ paths:
           description: fetch profile success
           schema:
             $ref: "#/definitions/PROFILE_RES"
-        404:
-          description: Profile not found
         400:
           description: Invalid parameter
+        404:
+          description: Profile not found
+        500:
+          description: Internal Server Error
   /profile/me:
     get:
       tags:
@@ -174,19 +202,25 @@ paths:
       produces:
         - application/json
       parameters:
-        - in: path
+        - in: query
           type: string
           name: sessionId
+          required: true
+        - in: query
+          type: integer
+          name: profileId
           required: true
       responses:
         200:
           description: fetch profile success
           schema:
             $ref: "#/definitions/PROFILE_RES"
-        401:
-          description: sessionId unauthorized
         400:
           description: Invalid parameter
+        401:
+          description: sessionId unauthorized
+        500:
+          description: Internal Server Error
 
 definitions:
   AUTH_RES:
