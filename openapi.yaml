@@ -8,6 +8,8 @@ tags:
     description: API for auth (client)
   - name: profile
     description: API for profile data (client)
+  - name: media
+    description: API for update media (client)
 paths:
   /session:
     post:
@@ -211,6 +213,41 @@ paths:
           description: fetch profile success
           schema:
             $ref: '#/definitions/PROFILE_RES'
+        '400':
+          description: Invalid parameter
+        '401':
+          description: sessionId unauthorized
+        '500':
+          description: Internal Server Error
+  /media/image:
+    post:
+      tags:
+        - media
+      summary: Upload image and return url
+      operationId: mediaImage
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          type: string
+          name: sessionId
+          required: true
+        - in: body
+          name: FormData
+          schema:
+            type: object
+            properties:
+              file:
+                type: object
+      responses:
+        '200':
+          description: upload success
+          schema:
+            type: string
+            format: string
+            example: www.test.imagepath.jpg
         '400':
           description: Invalid parameter
         '401':
