@@ -101,7 +101,7 @@ paths:
     delete:
       tags:
         - session
-      summary: Login by email and password
+      summary: Logout
       operationId: logout
       consumes:
         - application/json
