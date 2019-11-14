@@ -268,7 +268,7 @@ definitions:
       - username
       - sessionID
     properties:
-      email:
+      userId:
         type: integer
         format: integer
         example: 1
