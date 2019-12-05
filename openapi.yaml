@@ -8,6 +8,8 @@ tags:
     description: API for auth (client)
   - name: profile
     description: API for profile data (client)
+  - name: project
+    description: API for project data (client)
   - name: media
     description: API for update media (client)
 paths:
@@ -254,6 +256,38 @@ paths:
           description: sessionId unauthorized
         '500':
           description: Internal Server Error
+  /project:
+    post:
+      tags:
+        - project
+      summary: create new project
+      operationId: newProject
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          type: string
+          name: sessionId
+          required: true
+        - in: body
+          name: FormData
+          schema:
+            $ref: '#/definitions/PROJECT_REQ'
+      responses:
+        '200':
+          description: fetch profile success
+          schema:
+            $ref: '#/definitions/PROJECT_RES'
+        '400':
+          description: Invalid parameter
+        '401':
+          description: sessionId unauthorized
+        '409':
+          description: repeated project name
+        '500':
+          description: Internal Server Error
 definitions:
   AUTH_RES:
     type: object
@@ -262,7 +296,7 @@ definitions:
       - username
       - sessionID
     properties:
-      email:
+      userId:
         type: integer
         format: integer
         example: 1
@@ -293,3 +327,39 @@ definitions:
       photoUrl:
         type: string
         example: www.image.jpg
+  PROJECT_REQ:
+    type: object
+    required:
+      - name
+      - isPrivate
+    properties:
+      name:
+        type: string
+        example: ting's project
+      description:
+        type: string
+        example: hello world
+      isPrivate:
+        type: boolean
+        example: true
+  PROJECT_RES:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      name:
+        type: string
+        example: ting's project
+      description:
+        type: string
+        example: hello world
+      isPrivate:
+        type: boolean
+        example: true
+      create_time:
+        type: string
+        example: '2019-12-05T06:40:43.746+0000'
+      owner:
+        type: string
+        example: ting
