@@ -322,8 +322,6 @@ paths:
           description: Invalid parameter
         401:
           description: sessionId unauthorized
-        409:
-          description: repeated project name 
         500:
           description: Internal Server Error
           
