@@ -443,6 +443,56 @@
           }
         }
       }
+    },
+    "/project/get": {
+      "post": {
+        "tags": [
+          "project"
+        ],
+        "summary": "fetch project",
+        "operationId": "fetchProject",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "type": "string",
+            "name": "sessionId",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "FormData",
+            "schema": {
+              "$ref": "#/definitions/GetProjectReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "fetch profile success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PROJECT_RES"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter"
+          },
+          "401": {
+            "description": "sessionId unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -515,6 +565,33 @@
           "example": "hello world"
         },
         "isPrivate": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "GetProjectReq": {
+      "type": "object",
+      "required": [
+        "user_id",
+        "timestamp",
+        "limit",
+        "isOwner"
+      ],
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "example": 15
+        },
+        "timestamp": {
+          "type": "string",
+          "example": "2019-12-05T06:40:43.746+0000"
+        },
+        "limit": {
+          "type": "integer",
+          "example": 15
+        },
+        "isOwner": {
           "type": "boolean",
           "example": true
         }
