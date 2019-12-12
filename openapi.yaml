@@ -356,6 +356,46 @@ paths:
           description: not found / permission denied
         '500':
           description: Internal Server Error
+  /project/tags:
+    post:
+      tags:
+        - project
+      summary: fetch project tags
+      operationId: fetchProjectTags
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          type: string
+          name: sessionId
+          required: true
+        - in: body
+          name: ProjectId
+          schema:
+            type: object
+            required:
+              - projectId
+            properties:
+              projectId:
+                type: integer
+                example: 1
+      responses:
+        '200':
+          description: fetch profile success
+          schema:
+            type: array
+            items:
+              type: string
+        '400':
+          description: Invalid parameter
+        '401':
+          description: sessionId unauthorized
+        '404':
+          description: not found / permission denied
+        '500':
+          description: Internal Server Error
   /issue:
     post:
       tags:
@@ -581,7 +621,7 @@ definitions:
         type: string
         example: ting
       issue_count:
-        type: integ
+        type: integer
       finish_issue_count:
         type: integer
         example: 1
@@ -615,6 +655,10 @@ definitions:
       isReproducible:
         type: boolean
         example: true
+      tags:
+        type: array
+        items:
+          type: string
   NewIssueRes:
     type: object
     properties:
@@ -630,6 +674,9 @@ definitions:
       projectId:
         type: integer
         example: 1
+      projectName:
+        type: string
+        example: yo
       state:
         type: integer
         example: 1
@@ -648,6 +695,10 @@ definitions:
       ReportUser:
         type: string
         example: test
+      tags:
+        type: array
+        items:
+          type: string
   GetProjectIssueReq:
     type: object
     properties:
