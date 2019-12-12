@@ -586,7 +586,7 @@ definitions:
         type: string
         example: ting
       issue_count:
-        type: integ
+        type: integer
       finish_issue_count:
         type: integer
         example: 1
@@ -620,6 +620,10 @@ definitions:
       isReproducible:
         type: boolean
         example: true
+      tags:
+        type: array
+        items:
+          type: string
   NewIssueRes:
     type: object
     properties:
@@ -635,6 +639,9 @@ definitions:
       projectId:
         type: integer
         example: 1
+      projectName:
+        type: string
+        example: yo
       state:
         type: integer
         example: 1
@@ -653,6 +660,10 @@ definitions:
       ReportUser:
         type: string
         example: test
+      tags:
+        type: array
+        items:
+          type: string
   GetProjectIssueReq:
     type: object
     properties:
