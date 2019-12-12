@@ -396,6 +396,76 @@ paths:
           description: not found / permission denied
         '500':
           description: Internal Server Error
+  /project/member:
+    post:
+      tags:
+        - project
+      summary: add project member
+      operationId: addProjectMember
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          type: string
+          name: sessionId
+          required: true
+        - in: body
+          name: FormData
+          schema:
+            $ref: '#/definitions/ProjectMemberReq'
+      responses:
+        '200':
+          description: fetch profile success
+          schema:
+            $ref: '#/definitions/ProjectMemberRes'
+        '400':
+          description: Invalid parameter
+        '401':
+          description: sessionId unauthorized
+        '403':
+          description: permission denied
+        '404':
+          description: user not found
+        '409':
+          description: user already is a project member
+        '500':
+          description: Internal Server Error
+  /project/getMember:
+    post:
+      tags:
+        - project
+      summary: get project member by project id
+      operationId: getProjectMember
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          type: string
+          name: sessionId
+          required: true
+        - in: body
+          name: FormData
+          schema:
+            $ref: '#/definitions/GetProjectIssueReq'
+      responses:
+        '200':
+          description: fetch profile success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ProjectMemberRes'
+        '400':
+          description: Invalid parameter
+        '401':
+          description: sessionId unauthorized
+        '403':
+          description: permission denied
+        '500':
+          description: Internal Server Error
   /issue:
     post:
       tags:
@@ -446,7 +516,7 @@ paths:
         - in: body
           name: FormData
           schema:
-            $ref: '#/definitions/NewIssueReq'
+            $ref: '#/definitions/GetProjectIssueReq'
       responses:
         '200':
           description: fetch profile success
@@ -709,5 +779,37 @@ definitions:
         type: string
         example: '2019-12-05T06:40:43.746+0000'
       limit:
+        type: integer
+        example: 15
+  ProjectMemberReq:
+    type: object
+    required:
+      - projectId
+      - username
+      - identity
+    properties:
+      projectId:
+        type: integer
+        example: 1
+      username:
+        type: string
+        example: test
+      identity:
+        type: integer
+        example: 1
+        minimum: 1
+  ProjectMemberRes:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 2
+      username:
+        type: string
+        example: test
+      join_time:
+        type: string
+        example: '2019-12-05T06:40:43.746+0000'
+      identity:
         type: integer
         example: 1
