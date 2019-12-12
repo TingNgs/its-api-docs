@@ -19,6 +19,10 @@
       "description": "API for project data (client)"
     },
     {
+      "name": "issue",
+      "description": "API for update media (client)"
+    },
+    {
       "name": "media",
       "description": "API for update media (client)"
     }
@@ -493,6 +497,159 @@
           }
         }
       }
+    },
+    "/project/detail": {
+      "post": {
+        "tags": [
+          "project"
+        ],
+        "summary": "fetch project detail",
+        "operationId": "fetchProjectDetail",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "type": "string",
+            "name": "sessionId",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "FormData",
+            "schema": {
+              "$ref": "#/definitions/ProjectDetailReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "fetch profile success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProjectDetailRes"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter"
+          },
+          "401": {
+            "description": "sessionId unauthorized"
+          },
+          "404": {
+            "description": "not found / permission denied"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/issue": {
+      "post": {
+        "tags": [
+          "issue"
+        ],
+        "summary": "New issue",
+        "operationId": "newIssue",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "type": "string",
+            "name": "sessionId",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "FormData",
+            "schema": {
+              "$ref": "#/definitions/NewIssueReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "fetch profile success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NewIssueRes"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter"
+          },
+          "401": {
+            "description": "sessionId unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/issue/project": {
+      "post": {
+        "tags": [
+          "issue"
+        ],
+        "summary": "Get issue by project Id",
+        "operationId": "projectIssue",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "type": "string",
+            "name": "sessionId",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "FormData",
+            "schema": {
+              "$ref": "#/definitions/NewIssueReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "fetch profile success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NewIssueRes"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter"
+          },
+          "401": {
+            "description": "sessionId unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -623,6 +780,162 @@
         "owner": {
           "type": "string",
           "example": "ting"
+        }
+      }
+    },
+    "ProjectDetailReq": {
+      "type": "object",
+      "required": [
+        "user",
+        "project"
+      ],
+      "properties": {
+        "user": {
+          "type": "string",
+          "example": "test"
+        },
+        "project": {
+          "type": "string",
+          "example": "test"
+        }
+      }
+    },
+    "ProjectDetailRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "ting's project"
+        },
+        "description": {
+          "type": "string",
+          "example": "hello world"
+        },
+        "isPrivate": {
+          "type": "boolean",
+          "example": true
+        },
+        "create_time": {
+          "type": "string",
+          "example": "2019-12-05T06:40:43.746+0000"
+        },
+        "owner": {
+          "type": "string",
+          "example": "ting"
+        },
+        "issue_count": {
+          "type": "integ"
+        },
+        "finish_issue_count": {
+          "type": "integer",
+          "example": 1
+        },
+        "member_count": {
+          "type": "integer",
+          "example": 1
+        },
+        "tag_count": {
+          "type": "integer",
+          "example": 1
+        }
+      }
+    },
+    "NewIssueReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "new issue"
+        },
+        "description": {
+          "type": "string",
+          "example": "hello world"
+        },
+        "projectId": {
+          "type": "integer",
+          "example": 1
+        },
+        "state": {
+          "type": "integer",
+          "example": 1
+        },
+        "severity": {
+          "type": "integer",
+          "example": 1
+        },
+        "priority": {
+          "type": "integer",
+          "example": 1
+        },
+        "isReproducible": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "NewIssueRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "new issue"
+        },
+        "description": {
+          "type": "string",
+          "example": "hello world"
+        },
+        "projectId": {
+          "type": "integer",
+          "example": 1
+        },
+        "state": {
+          "type": "integer",
+          "example": 1
+        },
+        "severity": {
+          "type": "integer",
+          "example": 1
+        },
+        "priority": {
+          "type": "integer",
+          "example": 1
+        },
+        "isReproducible": {
+          "type": "boolean",
+          "example": true
+        },
+        "create_time": {
+          "type": "string",
+          "example": "2019-12-05T06:40:43.746+0000"
+        },
+        "ReportUser": {
+          "type": "string",
+          "example": "test"
+        }
+      }
+    },
+    "GetProjectIssueReq": {
+      "type": "object",
+      "properties": {
+        "projectId": {
+          "type": "integer",
+          "example": 2
+        },
+        "timestamp": {
+          "type": "string",
+          "example": "2019-12-05T06:40:43.746+0000"
+        },
+        "limit": {
+          "type": "integer",
+          "example": 1
         }
       }
     }
