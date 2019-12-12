@@ -650,6 +650,56 @@
           }
         }
       }
+    },
+    "/issue/get": {
+      "post": {
+        "tags": [
+          "issue"
+        ],
+        "summary": "fetch issue",
+        "operationId": "getUserIssue",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "type": "string",
+            "name": "sessionId",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "FormData",
+            "schema": {
+              "$ref": "#/definitions/GetProjectReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "fetch profile success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NewIssueRes"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameter"
+          },
+          "401": {
+            "description": "sessionId unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "definitions": {
